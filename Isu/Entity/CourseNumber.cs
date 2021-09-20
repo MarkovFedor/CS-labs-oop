@@ -5,11 +5,14 @@ namespace Isu.Entity
 {
     public class CourseNumber
     {
+        private const int MinimalCourseNumber = 0;
+        private const int MaximumCourseNumber = 4;
+
         private int _numberOfCourse;
 
         public CourseNumber(int course)
         {
-            if (course < 0 || course > 4)
+            if (course < MinimalCourseNumber || course > MaximumCourseNumber)
             {
                 throw new IsuException("Такого курса быть не может");
             }

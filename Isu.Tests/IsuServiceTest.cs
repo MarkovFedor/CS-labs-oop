@@ -29,7 +29,7 @@ namespace Isu.Tests
         public void ReachMaxStudentPerGroup_ThrowException()
         {
             var m3110 = _isuService.AddGroup("M3110");
-            for(int i = 0; i < 31; i++)
+            for(int i = 0; i < 30; i++)
                 {
                     _isuService.AddStudent(m3110, i.ToString());
                 }

@@ -8,6 +8,7 @@ namespace Isu.Services
     public class IsuService : IIsuService
     {
         private List<Group> _groups;
+
         public IsuService()
         {
             _groups = new List<Group>();
@@ -15,7 +16,8 @@ namespace Isu.Services
 
         public Group AddGroup(string name)
         {
-            _groups.Add(new Group(name));
+            Group addedGroup = new Group(name);
+            _groups.Add(addedGroup);
             return _groups[_groups.Count - 1];
         }
 
@@ -126,7 +128,7 @@ namespace Isu.Services
                         {
                             group.GetStudents().Remove(student);
                             newGroup.GetStudents().Add(student);
-                            break;
+                            return;
                         }
                     }
                 }

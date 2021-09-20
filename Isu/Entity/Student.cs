@@ -5,7 +5,7 @@ namespace Isu.Entity
 {
     public class Student
     {
-        private static int iD;
+        private static int iD = 0;
         private string _nameOfStudent;
         private int _id;
         private Group _group;
@@ -13,7 +13,7 @@ namespace Isu.Entity
         public Student(string name, Group group)
         {
             _nameOfStudent = name;
-            iD += 1;
+            ++iD;
             _id = iD;
             _group = group;
         }

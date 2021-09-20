@@ -34,7 +34,7 @@ namespace Isu.Entity
         public Student PutStudent(string name, Group group)
         {
             Student student = new Student(name, group);
-            if (_students.Count <= maxCountOfStudents)
+            if (_students.Count < maxCountOfStudents)
             {
                     _students.Add(student);
                     Console.WriteLine(_students.Count.ToString(), maxCountOfStudents);
