@@ -18,7 +18,7 @@ namespace Isu.Services
         {
             Group addedGroup = new Group(name);
             _groups.Add(addedGroup);
-            return _groups[_groups.Count - 1];
+            return addedGroup;
         }
 
         public Student AddStudent(Group group, string name)

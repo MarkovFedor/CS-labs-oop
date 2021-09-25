@@ -6,7 +6,13 @@ namespace Isu.Entity
 {
     public class Group
     {
-        private static int maxCountOfStudents = 30;
+        private const int MaxCountOfStudents = 30;
+        private const char FirstLetterOfGroup = 'M';
+        private const char NumberOfFaculty = '3';
+        private const int MinimalCourseNumber = 1;
+        private const int MaxCourseNumber = 4;
+        private const int LengthOfGroupName = 5;
+
         private string _nameOfGroup;
         private int _numberOfCourse;
         private int _numberOfGroup;
@@ -14,11 +20,11 @@ namespace Isu.Entity
         public Group(string name)
         {
             int guessNumberOfCourse = int.Parse(name[2].ToString());
-            if (name[0] == 'M' &&
-                name[1] == '3' &&
-                guessNumberOfCourse > 0 &&
-                guessNumberOfCourse < 5 &&
-                name.Length == 5)
+            if (name[0] == FirstLetterOfGroup &&
+                name[1] == NumberOfFaculty &&
+                guessNumberOfCourse >= MinimalCourseNumber &&
+                guessNumberOfCourse <= MaxCourseNumber &&
+                name.Length == LengthOfGroupName)
             {
                 _nameOfGroup = name;
                 _numberOfCourse = guessNumberOfCourse;
@@ -33,12 +39,11 @@ namespace Isu.Entity
 
         public Student PutStudent(string name, Group group)
         {
-            Student student = new Student(name, group);
-            if (_students.Count < maxCountOfStudents)
+            if (_students.Count < MaxCountOfStudents)
             {
-                    _students.Add(student);
-                    Console.WriteLine(_students.Count.ToString(), maxCountOfStudents);
-                    return student;
+                Student student = new Student(name, group);
+                _students.Add(student);
+                return student;
             }
             else
             {
@@ -48,10 +53,10 @@ namespace Isu.Entity
 
         public void PutStudent(Student student)
         {
-            if (_students.Count <= maxCountOfStudents)
+            if (_students.Count <= MaxCountOfStudents)
             {
                 _students.Add(student);
-                Console.WriteLine(_students.Count.ToString(), maxCountOfStudents);
+                Console.WriteLine(_students.Count.ToString(), MaxCountOfStudents);
             }
             else
             {

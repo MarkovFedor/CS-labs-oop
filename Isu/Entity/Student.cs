@@ -13,8 +13,7 @@ namespace Isu.Entity
         public Student(string name, Group group)
         {
             _nameOfStudent = name;
-            ++iD;
-            _id = iD;
+            _id = ++iD;
             _group = group;
         }
 
