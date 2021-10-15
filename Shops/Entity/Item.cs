@@ -55,7 +55,7 @@ namespace Shops.Entity
             return _product;
         }
 
-        public void Substract(int amount)
+        public void SubstractAmount(int amount)
         {
             if (_amount >= amount)
             {

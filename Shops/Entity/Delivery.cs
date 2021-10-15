@@ -6,13 +6,13 @@ namespace Shops.Entity
 {
     public class Delivery
     {
-        private static int iD;
-        private Dictionary<Product, Item> _itemsInDelivery;
+        private static int iD = 1;
+        private List<Item> _itemsInDelivery;
         private int _id;
         public Delivery()
         {
             _id = ++iD;
-            _itemsInDelivery = new Dictionary<Product, Item>();
+            _itemsInDelivery = new List<Item>();
         }
 
         public int GetId()
@@ -27,17 +27,19 @@ namespace Shops.Entity
                 throw new ShopException("Некорректная цена или количество.");
             }
 
-            if (!_itemsInDelivery.ContainsKey(product))
+            foreach (var item in _itemsInDelivery)
             {
-                _itemsInDelivery.Add(product, new Item(product, price, amount));
+                if (item.GetProduct().Equals(product))
+                {
+                    item.AddAmount(amount);
+                    return;
+                }
             }
-            else
-            {
-                _itemsInDelivery[product].AddAmount(amount);
-            }
+
+            _itemsInDelivery.Add(new Item(product, price, amount));
         }
 
-        public Dictionary<Product, Item> GetItems()
+        public List<Item> GetItems()
         {
             return _itemsInDelivery;
         }

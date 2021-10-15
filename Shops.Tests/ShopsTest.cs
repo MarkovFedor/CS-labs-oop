@@ -18,19 +18,12 @@ namespace Shops.Tests
         public void CreateShopAddItemsToSystemDeliverItems_BuyItems()
         {
             Shop ashan = _shopManager.CreateShop("ashan", "mira 113");
-
             Person Vasya = new Person("Vasya", 100);
-
             Product apples = _shopManager.RegisterProduct("Apples");
-
             Delivery delivery = new Delivery();
-
             delivery.AddProduct(apples, 10, 12);
-
             ashan.Deliver(delivery);
-
             ashan.Buy(Vasya, apples, 8);
-
             Assert.AreEqual(4, ashan.GetAmountOfProduct(apples));
             Assert.AreEqual(20, Vasya.GetMoney());
         }

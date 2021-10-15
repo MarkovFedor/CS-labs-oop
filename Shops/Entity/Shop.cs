@@ -23,13 +23,13 @@ namespace Shops.Entity
         {
             foreach (var item in delivery.GetItems())
             {
-                if (_shopItems.ContainsKey(item.Key))
+                if (_shopItems.ContainsKey(item.GetProduct()))
                 {
-                    _shopItems[item.Key].AddAmount(item.Value.GetAmount());
+                    _shopItems[item.GetProduct()].AddAmount(item.GetAmount());
                 }
                 else
                 {
-                    _shopItems[item.Key] = item.Value;
+                    _shopItems[item.GetProduct()] = item;
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace Shops.Entity
                 if (_shopItems[product].GetAmount() >= amount)
                 {
                     buyer.SpentMoney(_shopItems[product].GetPrice() * amount);
-                    _shopItems[product].Substract(amount);
+                    _shopItems[product].SubstractAmount(amount);
                     buyer.AddProduct(product, amount);
                 }
             }
