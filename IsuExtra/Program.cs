@@ -1,4 +1,3 @@
-﻿using System;
 using IsuExtra.Entities;
 
 namespace IsuExtra
