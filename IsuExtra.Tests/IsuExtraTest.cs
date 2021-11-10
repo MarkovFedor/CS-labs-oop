@@ -64,12 +64,12 @@ namespace IsuExtra.Tests
         public void GetNotSubscribedStudents()
         {
             Megafaculty faculty = _isu.CreateMegafaculty("FITIP", 'M');
-            Group testGroup = _isu.AddGroup("N3210");
-            Student testStudent = _isu.AddStudent("Test", testGroup, faculty);
-            Student testStudent2 = _isu.AddStudent("Test2", testGroup, faculty);
-            Student testStudent3 = _isu.AddStudent("Test3", testGroup, faculty);
-            Student testStudent4 = _isu.AddStudent("Test4", testGroup, faculty);
-            Student testStudent5 = _isu.AddStudent("Test5", testGroup, faculty);
+            Group testGroup = _isu.AddGroup("M3210");
+            _isu.AddStudent("Test", testGroup, faculty);
+            _isu.AddStudent("Test2", testGroup, faculty);
+            _isu.AddStudent("Test3", testGroup, faculty);
+            _isu.AddStudent("Test4", testGroup, faculty);
+            _isu.AddStudent("Test5", testGroup, faculty);
 
             Assert.AreEqual(5, _isu.GetNotSubscribedStudents().Count);
 
