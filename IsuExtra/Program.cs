@@ -1,5 +1,3 @@
-using IsuExtra.Entities;
-
 namespace IsuExtra
 {
     internal class Program

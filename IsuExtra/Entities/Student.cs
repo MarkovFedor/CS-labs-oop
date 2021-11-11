@@ -7,6 +7,8 @@ namespace IsuExtra.Entities
 {
     public class Student
     {
+        private static int iD = 0;
+        private int _id;
         private string _name;
         private Group _group;
         private OGNPCourse firstCourse;
@@ -18,6 +20,12 @@ namespace IsuExtra.Entities
             _name = name;
             _group = group;
             _megafaculty = megafaculty;
+            _id = iD++;
+        }
+
+        public string GetName()
+        {
+            return _name;
         }
 
         public OGNPCourse GetFirstCourse()
@@ -44,14 +52,21 @@ namespace IsuExtra.Entities
 
             if (firstCourse == null)
             {
-                firstCourse = course;
-                course.SubscribeStudent(this);
+                if (course.SubscribeStudent(this))
+                {
+                    firstCourse = course;
+                }
+
                 return;
             }
 
             if (secondCourse == null)
             {
-                secondCourse = course;
+                if (course.SubscribeStudent(this))
+                {
+                    firstCourse = course;
+                }
+
                 return;
             }
 
@@ -76,6 +91,21 @@ namespace IsuExtra.Entities
         public Megafaculty GetMegafaculty()
         {
             return _megafaculty;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Student);
+        }
+
+        public bool Equals(Student student)
+        {
+            return GetHashCode() == student.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return _id;
         }
     }
 }

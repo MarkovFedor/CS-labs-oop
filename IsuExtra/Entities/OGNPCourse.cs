@@ -18,24 +18,26 @@ namespace IsuExtra.Entities
             _groups.Add(new OGNPGroup(_groups.Count.ToString(), megafaculty));
         }
 
-        public void SubscribeStudent(Student student)
+        public bool SubscribeStudent(Student student)
         {
             foreach (OGNPGroup group in _groups)
             {
-                if (group.AllowToSubscribe(student))
+                if (group.IsAllowToSubscribe(student))
                 {
-                    student.SignUpForCourse(this);
+                    return true;
                 }
             }
+
+            return false;
         }
 
         public void SignOutStudent(Student student)
         {
             foreach (OGNPGroup group in _groups)
             {
-                foreach (Student guesstudent in group.GetStudents())
+                foreach (Student guesStudent in group.GetStudents())
                 {
-                    if (guesstudent == student)
+                    if (guesStudent == student)
                     {
                         group.GetStudents().Remove(student);
                     }
