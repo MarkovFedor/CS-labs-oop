@@ -7,12 +7,12 @@ namespace IsuExtra
 {
     public interface IIsuExtraService
     {
-        public OGNPCourse CreateOGNP(Megafaculty faculty, string courseName);
-        public void SubscribeStudentOnOGNP(Student student, OGNPCourse course);
-        public void UnsubscribeStudentOGNP(Student student, OGNPCourse course);
-        public List<OGNPGroup> GetGroupsOnCourse(OGNPCourse course);
-        public List<Student> GetStudentsInOGNPGroup(OGNPGroup group);
-        public List<Student> GetNotSubscribedStudents();
-        public Group AddGroup(string groupName);
+        OGNPCourse CreateOGNP(Megafaculty faculty, string courseName);
+        void SubscribeStudentOnOGNP(Student student, OGNPCourse course);
+        void UnsubscribeStudentOGNP(Student student, OGNPCourse course);
+        List<OGNPGroup> GetGroupsOnCourse(OGNPCourse course);
+        List<Student> GetStudentsInOGNPGroup(OGNPGroup group);
+        List<Student> GetNotSubscribedStudents();
+        Group AddGroup(string groupName);
     }
 }

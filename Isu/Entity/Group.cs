@@ -78,5 +78,10 @@ namespace Isu.Entity
         {
             return _numberOfCourse;
         }
+
+        public int GetMaxCountOfStudents()
+        {
+            return MaxCountOfStudents;
+        }
     }
 }

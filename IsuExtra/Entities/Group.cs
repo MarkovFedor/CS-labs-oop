@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace IsuExtra.Entities
 {
-    public class Group
+    public class Group : Isu.Entity.Group
     {
-        public static readonly int MAXSTUDENTCOUNT = 20;
         private Megafaculty _megafaculty;
-        private string _name;
         private List<Student> _students;
         private List<Lesson> _schedule;
         public Group(string name)
+            : base(name)
         {
-            _name = name;
             _students = new List<Student>();
             _schedule = new List<Lesson>();
         }
@@ -38,7 +34,7 @@ namespace IsuExtra.Entities
 
         public void PutStudent(Student student)
         {
-            if (_students.Count < MAXSTUDENTCOUNT)
+            if (_students.Count < GetMaxCountOfStudents())
             {
                 _students.Add(student);
             }

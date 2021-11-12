@@ -32,10 +32,10 @@ namespace IsuExtra.Tests
         [Test]
         public void SubscribeStudentOnOGNP_StudentSubscribed()
         {
-            Megafaculty faculty = _isu.CreateMegafaculty("FITIP", 'M');
-            Megafaculty anotherFaculty = _isu.CreateMegafaculty("some", 'N');
+            Megafaculty faculty = _isu.CreateMegafaculty("FITIP", 'N');
+            Megafaculty anotherFaculty = _isu.CreateMegafaculty("some", 'M');
             OGNPCourse course = faculty.CreateOGNPCourse("Some name for course");
-            Group testGroup = _isu.AddGroup("N3210");
+            Group testGroup = _isu.AddGroup("M3210");
 
             Student testStudent = _isu.AddStudent("Test", testGroup, anotherFaculty);
             _isu.SubscribeStudentOnOGNP(testStudent, course);
@@ -45,10 +45,10 @@ namespace IsuExtra.Tests
         [Test]
         public void UnsubscribeStudentFromOGNP_StudentUnsubscribed()
         {
-            Megafaculty faculty = _isu.CreateMegafaculty("FITIP", 'M');
-            Megafaculty anotherFaculty = _isu.CreateMegafaculty("some", 'N');
+            Megafaculty faculty = _isu.CreateMegafaculty("FITIP", 'N');
+            Megafaculty anotherFaculty = _isu.CreateMegafaculty("some", 'M');
             OGNPCourse course = faculty.CreateOGNPCourse("Some name for course");
-            Group testGroup = _isu.AddGroup("N3210");
+            Group testGroup = _isu.AddGroup("M3210");
 
             Student testStudent = _isu.AddStudent("Test", testGroup, anotherFaculty);
             _isu.SubscribeStudentOnOGNP(testStudent, course);
