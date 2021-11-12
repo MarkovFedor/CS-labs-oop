@@ -5,27 +5,18 @@ using IsuExtra.Exceptions;
 
 namespace IsuExtra.Entities
 {
-    public class Student
+    public class Student : Isu.Entity.Student
     {
-        private static int iD = 0;
-        private int _id;
-        private string _name;
-        private Group _group;
         private OGNPCourse firstCourse;
         private OGNPCourse secondCourse;
         private Megafaculty _megafaculty;
+        private Group _group;
 
         public Student(string name, Group group, Megafaculty megafaculty)
+            : base(name, group)
         {
-            _name = name;
-            _group = group;
             _megafaculty = megafaculty;
-            _id = iD++;
-        }
-
-        public string GetName()
-        {
-            return _name;
+            _group = group;
         }
 
         public OGNPCourse GetFirstCourse()
@@ -36,11 +27,6 @@ namespace IsuExtra.Entities
         public OGNPCourse GetSecondCourse()
         {
             return secondCourse;
-        }
-
-        public Group GetGroup()
-        {
-            return _group;
         }
 
         public void SignUpForCourse(OGNPCourse course)
@@ -93,19 +79,9 @@ namespace IsuExtra.Entities
             return _megafaculty;
         }
 
-        public override bool Equals(object obj)
+        public new Group GetGroup()
         {
-            return Equals(obj as Student);
-        }
-
-        public bool Equals(Student student)
-        {
-            return GetHashCode() == student.GetHashCode();
-        }
-
-        public override int GetHashCode()
-        {
-            return _id;
+            return _group;
         }
     }
 }

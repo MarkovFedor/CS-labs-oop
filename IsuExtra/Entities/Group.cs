@@ -45,6 +45,11 @@ namespace IsuExtra.Entities
             return _schedule;
         }
 
+        public new List<Student> GetStudents()
+        {
+            return _students;
+        }
+
         private bool IsAllowLesson(Lesson lesson)
         {
             foreach (Lesson curLesson in _schedule)
