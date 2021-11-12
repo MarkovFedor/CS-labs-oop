@@ -79,7 +79,7 @@ namespace IsuExtra.Entities
             return _megafaculty;
         }
 
-        public new Group GetGroup()
+        public Group GetModifiedGroup()
         {
             return _group;
         }

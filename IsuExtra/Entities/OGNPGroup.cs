@@ -45,7 +45,7 @@ namespace IsuExtra.Entities
 
         public bool IsAllowToSubscribe(Student student)
         {
-            if (_students.Count < MAXSTUDENTSINGROUP && student.GetMegafaculty().GetID() != _megafaculty.GetID() && IsAllowSchedule(student.GetGroup().GetSchedule()))
+            if (_students.Count < MAXSTUDENTSINGROUP && student.GetMegafaculty().GetID() != _megafaculty.GetID() && IsAllowSchedule(student.GetModifiedGroup().GetSchedule()))
             {
                 return true;
             }
