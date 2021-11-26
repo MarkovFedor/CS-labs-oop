@@ -3,20 +3,18 @@ using System.IO;
 using System.IO.Compression;
 using Backups.Entities;
 
-namespace Backups.Algorithms
+namespace Backups.Repository
 {
-    public class SingleAlgorithmRepository : IAlgorithmRepository
+    public class WindowsRepository
+        : IRepository
     {
-        public SingleAlgorithmRepository() { }
-        public void Save(RestorePoint restorePoint)
+        public void CreateSingle(RestorePoint restorePoint)
         {
             string dirName = restorePoint.GetDirName();
             dirName = GenerateUniqDir(dirName);
-            Console.WriteLine(dirName);
             string archName = dirName + "_" + "arch.zip";
             Directory.CreateDirectory(dirName);
-            Console.WriteLine(archName);
-            foreach (string storeObject in restorePoint.GetJobObjects())
+            foreach (string storeObject in restorePoint.GetStorage().GetJobObjects())
             {
                 string[] paths = storeObject.Split("/");
                 string clearStoreObject = paths[paths.Length - 1];
@@ -25,6 +23,25 @@ namespace Backups.Algorithms
 
             ZipFile.CreateFromDirectory(dirName, archName);
             Directory.Delete(dirName, true);
+        }
+
+        public void CreateSplit(RestorePoint restorePoint)
+        {
+            string dirName = restorePoint.GetDirName();
+            dirName = GenerateUniqDir(dirName);
+            Directory.CreateDirectory(dirName);
+            foreach (string storeObject in restorePoint.GetStorage().GetJobObjects())
+            {
+                string[] paths = storeObject.Split("/");
+                string clearStoreObject = paths[paths.Length - 1];
+                string archName = dirName + "/" + clearStoreObject + ".zip";
+                using (ZipArchive zipArchive = ZipFile.Open(archName, ZipArchiveMode.Create))
+                {
+                    string pathFileToAdd = storeObject;
+                    string nameFileToAdd = clearStoreObject;
+                    zipArchive.CreateEntryFromFile(pathFileToAdd, nameFileToAdd);
+                }
+            }
         }
 
         private string GenerateUniqDir(string dirName)

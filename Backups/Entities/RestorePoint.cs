@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Backups.Entities
 {
@@ -9,14 +8,14 @@ namespace Backups.Entities
         private string _name;
         private string _dirName;
         private DateTime _date;
-        private List<string> _jobObjects;
+        private Storage _storage;
 
-        public RestorePoint(string name, string path, List<string> jobObjects)
+        public RestorePoint(string name, string path, Storage storage)
         {
             _name = name;
             _path = path;
             _dirName = path + "/" + name;
-            _jobObjects = jobObjects;
+            _storage = storage;
             _date = DateTime.Now;
         }
 
@@ -45,9 +44,9 @@ namespace Backups.Entities
             _path = path;
         }
 
-        public List<string> GetJobObjects()
+        public Storage GetStorage()
         {
-            return _jobObjects;
+            return _storage;
         }
 
         public string Info()

@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using System.IO;
 using Backups.Algorithms;
+using Backups.Repository;
 
 namespace Backups.Entities
 {
     public class BackupJob : IBackupJob
     {
         private string _dir;
-        private List<string> _jobObjects;
+        private Storage _storage;
+        private IRepository _repository;
         private List<RestorePoint> _restorePoints;
-        private IAlgorithmRepository _algorithmRepository;
+        private IAlgorithm _algorithm;
         private DateTime _date;
 
         public BackupJob()
         {
             _date = DateTime.Now;
-            _jobObjects = new List<string>();
+            _storage = new Storage();
             _restorePoints = new List<RestorePoint>();
         }
 
@@ -32,12 +34,12 @@ namespace Backups.Entities
 
         public void AddJobObject(string path)
         {
-            _jobObjects.Add(path);
+            _storage.AddJobObject(path);
         }
 
         public void RemoveJobObject(string path)
         {
-            _jobObjects.Remove(path);
+            _storage.RemoveJobObject(path);
         }
 
         public List<RestorePoint> GetRestorePoints()
@@ -45,9 +47,9 @@ namespace Backups.Entities
             return _restorePoints;
         }
 
-        public void SetAlgorithm(IAlgorithmRepository algorithm)
+        public void SetAlgorithm(IAlgorithm algorithm)
         {
-            _algorithmRepository = algorithm;
+            _algorithm = algorithm;
         }
 
         public string GetDir()
@@ -57,12 +59,17 @@ namespace Backups.Entities
 
         public List<string> GetJobObjects()
         {
-            return _jobObjects;
+            return _storage.GetJobObjects();
         }
 
-        public IAlgorithmRepository GetAlgorithm()
+        public Storage GetStorage()
         {
-            return _algorithmRepository;
+            return _storage;
+        }
+
+        public IAlgorithm GetAlgorithm()
+        {
+            return _algorithm;
         }
 
         public DateTime GetDate()
@@ -70,10 +77,15 @@ namespace Backups.Entities
             return _date;
         }
 
+        public void SetRepository(IRepository repository)
+        {
+            _repository = repository;
+        }
+
         public void CreateRestorePoint(string name)
         {
-            var restorePoint = new RestorePoint(name, _dir, _jobObjects);
-            _algorithmRepository.Save(restorePoint);
+            var restorePoint = new RestorePoint(name, _dir, _storage);
+            _algorithm.Save(restorePoint);
             _restorePoints.Add(restorePoint);
         }
     }

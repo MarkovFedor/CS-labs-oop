@@ -8,6 +8,6 @@ namespace Backups.Entities
         void AddJobObject(string path);
         void RemoveJobObject(string path);
         List<RestorePoint> GetRestorePoints();
-        List<string> GetJobObjects();
+        Storage GetStorage();
     }
 }

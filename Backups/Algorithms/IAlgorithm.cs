@@ -2,7 +2,7 @@
 
 namespace Backups.Algorithms
 {
-    public interface IAlgorithmRepository
+    public interface IAlgorithm
     {
         void Save(RestorePoint restorePoint);
     }
