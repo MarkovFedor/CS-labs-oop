@@ -1,6 +1,6 @@
-﻿using Backups.Entities;
+﻿using System.IO.Compression;
+using Backups.Entities;
 using Backups.Repository;
-
 namespace Backups.Algorithms
 {
     public class SplitAlgorithm : IAlgorithm
@@ -13,7 +13,14 @@ namespace Backups.Algorithms
 
         public void Save(RestorePoint restorePoint)
         {
-            _repository.CreateSplit(restorePoint);
+            string dirName = restorePoint.GetDirName();
+            foreach (string storeObject in restorePoint.GetStorage().GetJobObjects())
+            {
+                string[] paths = storeObject.Split("/");
+                string clearStoreObject = paths[paths.Length - 1];
+                string archName = dirName + "/" + clearStoreObject + ".zip";
+                _repository.Create(storeObject, clearStoreObject, archName);
+            }
         }
     }
 }

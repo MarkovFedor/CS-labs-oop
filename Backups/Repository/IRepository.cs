@@ -1,10 +1,9 @@
-﻿using Backups.Entities;
+﻿using System.IO.Compression;
 
 namespace Backups.Repository
 {
     public interface IRepository
     {
-        void CreateSplit(RestorePoint restorePoint);
-        void CreateSingle(RestorePoint restorePoint);
+        void Create(string fileNamePath, string fileName, string archiveName);
     }
 }

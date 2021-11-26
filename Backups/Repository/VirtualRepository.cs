@@ -9,35 +9,15 @@ namespace Backups.Repository
         : IRepository
     {
         private List<string> _fileSystem;
+
         public VirtualRepository()
         {
             _fileSystem = new List<string>();
         }
 
-        public void CreateSplit(RestorePoint restorePoint)
+        public void Create(string fileNamePath, string fileName, string archiveName)
         {
-            string dir = restorePoint.GetDirName();
-            Storage storage = restorePoint.GetStorage();
-            List<string> jobObjects = storage.GetJobObjects();
-            foreach (string jobObject in jobObjects)
-            {
-                string[] paths = jobObject.Split("/");
-                string fileName = paths[paths.Length - 1];
-                _fileSystem.Add(dir + fileName + ".zip");
-            }
-        }
-
-        public void CreateSingle(RestorePoint restorePoint)
-        {
-            string dir = restorePoint.GetDirName();
-            Storage storage = restorePoint.GetStorage();
-            List<string> jobObjects = storage.GetJobObjects();
-            foreach (string jobObject in jobObjects)
-            {
-                string[] paths = jobObject.Split("/");
-                string fileName = paths[paths.Length - 1];
-                _fileSystem.Add(dir + fileName + ".zip");
-            }
+            _fileSystem.Add(archiveName);
         }
 
         public List<string> GetStorages()
