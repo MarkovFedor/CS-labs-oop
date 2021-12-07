@@ -1,22 +1,32 @@
-﻿using Banks.Entities;
-
+﻿using System.Collections.Generic;
+using Banks.Entities;
 namespace Banks.Clients
 {
     public class Client
     {
+        private static int iD = 0;
         private string _name;
         private string _surname;
         private string _address;
         private string _passport;
+        private int _id;
         private ClientStatus _status;
+        private List<string> _notifications;
 
-        private Client(string name, string surname, string address = null, string passport = null)
+        public Client(string name, string surname, string address = null, string passport = null)
         {
             _name = name;
             _surname = surname;
             _address = address;
             _passport = passport;
+            _id = iD++;
+            _notifications = new List<string>();
             DefineStatus();
+        }
+
+        public int GetId()
+        {
+            return _id;
         }
 
         public string GetName()
@@ -54,6 +64,35 @@ namespace Banks.Clients
         public ClientStatus GetStatus()
         {
             return _status;
+        }
+
+        public override int GetHashCode()
+        {
+            return _id;
+        }
+
+        public void HandleNotification(string notification)
+        {
+            _notifications.Add(notification);
+        }
+
+        public List<string> GetNotifications()
+        {
+            return _notifications;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return GetHashCode() == obj.GetHashCode();
+        }
+
+        public string Info()
+        {
+            return $"{_name}," +
+                $"{_surname}" +
+                $"{_passport}" +
+                $"{_address}" +
+                $"{_status}";
         }
 
         private void DefineStatus()
