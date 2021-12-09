@@ -95,6 +95,7 @@ namespace Banks.CLI
 
         private void RegisterClient()
         {
+            var builder = new ClientBuilder();
             Console.WriteLine("Введите имя (обязательно");
             Console.Write(">> ");
             string name = Console.ReadLine();
@@ -107,11 +108,18 @@ namespace Banks.CLI
             Console.WriteLine("Введите паспорт или нажмите enter");
             Console.Write(">> ");
             string passport = Console.ReadLine();
-            _centralBank.RegisterClient(name, surname, address, passport);
+            Client client = builder
+                .AddName(name)
+                .AddSurname(surname)
+                .AddPassport(passport)
+                .AddAddress(address)
+                .Build();
+            _centralBank.RegisterClient(client);
         }
 
         private void EditClient()
         {
+            var builder = new ClientBuilder();
             Console.WriteLine("Введите имя и фамилию клиента");
             Console.Write(">> ");
             string name = Console.ReadLine();
@@ -126,6 +134,11 @@ namespace Banks.CLI
             string address = Console.ReadLine();
             client.SetAddress(address);
             client.SetPassport(passport);
+            builder
+                .SetClient(client)
+                .AddAddress(address)
+                .AddPassport(passport)
+                .Build();
             Console.WriteLine(client.Info());
         }
 

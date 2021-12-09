@@ -26,7 +26,6 @@ namespace Banks.BankStructures
         {
             _transactionsHistory.Add(transaction);
             transaction.Execute();
-            transaction.GetAuthor().HandleNotification(transaction.GetInfo());
         }
 
         public List<Client> GetRegistratedClients()
@@ -34,9 +33,8 @@ namespace Banks.BankStructures
             return _registratedClients;
         }
 
-        public Client RegisterClient(string name, string surname, string passport = null, string address = null)
+        public Client RegisterClient(Client client)
         {
-            var client = new Client(name, surname, passport, address);
             _registratedClients.Add(client);
             return client;
         }

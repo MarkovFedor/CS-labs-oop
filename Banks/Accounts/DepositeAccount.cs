@@ -1,7 +1,6 @@
 ﻿using System;
 using Banks.BankStructures;
 using Banks.Clients;
-using Banks.Entities;
 using Banks.Notifications;
 namespace Banks.Accounts
 {
@@ -34,22 +33,20 @@ namespace Banks.Accounts
         {
             if (IsCorrectAmount(amount) && amount <= _amount && _isEndOfDeposite)
             {
-                switch (GetOwner().GetStatus())
+                if (!GetOwner().IsReliable())
                 {
-                    case ClientStatus.DOUBTFUL:
-                        if (amount > GetBank().GetWithdrawLimit())
-                        {
-                            throw new Exception("Статус запрещает");
-                        }
-                        else
-                        {
-                            _amount -= amount;
-                        }
-
-                        break;
-                    case ClientStatus.RELIABLE:
+                    if (amount > GetBank().GetWithdrawLimit())
+                    {
+                        throw new Exception("Статус запрещает");
+                    }
+                    else
+                    {
                         _amount -= amount;
-                        break;
+                    }
+                }
+                else
+                {
+                    _amount -= amount;
                 }
             }
         }

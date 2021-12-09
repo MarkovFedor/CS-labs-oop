@@ -1,6 +1,6 @@
-﻿using System;
-using Banks.BankStructures;
+﻿using Banks.BankStructures;
 using Banks.Clients;
+using Banks.Exceptions;
 using Banks.Notifications;
 namespace Banks.Accounts
 {
@@ -21,7 +21,7 @@ namespace Banks.Accounts
         {
             if (_amount - amount < _limit)
             {
-                throw new Exception("Превышен лимит");
+                throw new CreditLimitException("Превышен лимит");
             }
             else
             {

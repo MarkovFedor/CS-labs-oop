@@ -55,7 +55,7 @@ namespace Banks.Accounts
         {
             if (amount > 0 && _amount - amount >= 0)
             {
-                if (GetOwner().GetStatus() == Entities.ClientStatus.DOUBTFUL && amount > GetBank().GetWithdrawLimit())
+                if (!GetOwner().IsReliable() && amount > GetBank().GetWithdrawLimit())
                 {
                     throw new Exception("Неподтвержденный клиент списывает слишком много");
                 }

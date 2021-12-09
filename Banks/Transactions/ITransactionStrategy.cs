@@ -4,7 +4,6 @@ namespace Banks.Transactions
     public interface ITransactionStrategy
     {
         void Execute();
-        string GetInfo();
         Client GetAuthor();
     }
 }

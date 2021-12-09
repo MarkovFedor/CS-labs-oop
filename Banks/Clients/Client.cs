@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Banks.Entities;
 namespace Banks.Clients
 {
     public class Client
@@ -9,19 +8,24 @@ namespace Banks.Clients
         private string _surname;
         private string _address;
         private string _passport;
+        private bool _reliable;
         private int _id;
-        private ClientStatus _status;
         private List<string> _notifications;
 
-        public Client(string name, string surname, string address = null, string passport = null)
+        public Client()
         {
-            _name = name;
-            _surname = surname;
-            _address = address;
-            _passport = passport;
             _id = iD++;
             _notifications = new List<string>();
-            DefineStatus();
+        }
+
+        public void SetName(string name)
+        {
+            _name = name;
+        }
+
+        public void SetSurname(string surname)
+        {
+            _surname = surname;
         }
 
         public int GetId()
@@ -61,9 +65,9 @@ namespace Banks.Clients
             DefineStatus();
         }
 
-        public ClientStatus GetStatus()
+        public bool IsReliable()
         {
-            return _status;
+            return _reliable;
         }
 
         public override int GetHashCode()
@@ -91,19 +95,18 @@ namespace Banks.Clients
             return $"{_name}," +
                 $"{_surname}" +
                 $"{_passport}" +
-                $"{_address}" +
-                $"{_status}";
+                $"{_address}";
         }
 
         private void DefineStatus()
         {
             if (_address != null && _passport != null)
             {
-                _status = ClientStatus.RELIABLE;
+                _reliable = true;
             }
             else
             {
-                _status = ClientStatus.DOUBTFUL;
+                _reliable = false;
             }
         }
     }

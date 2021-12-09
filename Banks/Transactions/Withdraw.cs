@@ -11,7 +11,6 @@ namespace Banks.Transactions
         private int _amount;
         private Bank _bank;
         private int _idOfAccount;
-        private TransactionStatus _status;
 
         public Withdraw(Client author, int amount, Bank bank, int id)
         {
@@ -19,12 +18,6 @@ namespace Banks.Transactions
             _amount = amount;
             _bank = bank;
             _idOfAccount = id;
-            _status = TransactionStatus.FAIL;
-        }
-
-        public string GetInfo()
-        {
-            return $"WITHDRAW TRANSACTION: by {_author}, amount: {_amount}, bank: {_bank}, account: {_idOfAccount}, status: {_status}";
         }
 
         public void Execute()
@@ -34,7 +27,6 @@ namespace Banks.Transactions
             {
                 Console.WriteLine(_author.GetId());
                 account.Withdraw(_amount);
-                _status = TransactionStatus.SUCCESS;
                 return;
             }
 

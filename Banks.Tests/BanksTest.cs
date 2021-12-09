@@ -4,20 +4,22 @@ using Banks.BankStructures;
 using Banks.Clients;
 using Banks.Accounts;
 using Banks.Transactions;
-
 namespace Banks.Tests
 {
     public class Tests
     {
+        private CentralBank _centralBank;
+        private ClientBuilder _clientBuilder;
         [SetUp]
         public void Setup()
         {
+            _centralBank = new CentralBank();
+            _clientBuilder = new ClientBuilder();
         }
 
         [Test]
         public void Replaineshment()
         {
-            CentralBank _centralBank = new CentralBank();
             Bank tinkoff = _centralBank.CreateBank("Tinkoff");
             Bank sberbank = _centralBank.CreateBank("Sberbank");
 
@@ -32,9 +34,16 @@ namespace Banks.Tests
             sberbank.SetDailyDepositePercent(5);
             sberbank.SetTransferLimit(1000);
             sberbank.SetWithdrawLimit(1000);
-
-            Client Alex = _centralBank.RegisterClient("Alex", "Milkovich");
-            Client Fedor = _centralBank.RegisterClient("Fedor", "Markov");
+            Client Alex = _clientBuilder
+                .AddName("Alex")
+                .AddSurname("Milkovich")
+                .Build();
+            Client Fedor = _clientBuilder
+                .AddName("Fedor")
+                .AddSurname("Markov")
+                .Build();
+            _centralBank.RegisterClient(Alex);
+            _centralBank.RegisterClient(Fedor);
 
             DebitAccount alexAccount = tinkoff.OpenDebitAccount(Alex);
             var fedorAccount = sberbank.OpenDebitAccount(Fedor);
@@ -48,7 +57,6 @@ namespace Banks.Tests
         [Test]
         public void TryToWithdrawByDoubtfulClient()
         {
-            CentralBank _centralBank = new CentralBank();
             Bank tinkoff = _centralBank.CreateBank("Tinkoff");
 
             tinkoff.SetCommission(10);
@@ -56,8 +64,11 @@ namespace Banks.Tests
             tinkoff.SetDailyDepositePercent(5);
             tinkoff.SetTransferLimit(1000);
             tinkoff.SetWithdrawLimit(1000);
-
-            Client Alex = _centralBank.RegisterClient("Alex", "Milkovich");
+            Client Alex = _clientBuilder
+                .AddName("Alex")
+                .AddSurname("Milkovich")
+                .Build();
+            _centralBank.RegisterClient(Alex);
 
             DebitAccount alexAccount = tinkoff.OpenDebitAccount(Alex);
 
@@ -70,7 +81,6 @@ namespace Banks.Tests
         [Test]
         public void TryToWithdrawByReliableClient()
         {
-            CentralBank _centralBank = new CentralBank();
             Bank tinkoff = _centralBank.CreateBank("Tinkoff");
 
             tinkoff.SetCommission(10);
@@ -78,8 +88,12 @@ namespace Banks.Tests
             tinkoff.SetDailyDepositePercent(5);
             tinkoff.SetTransferLimit(1000);
             tinkoff.SetWithdrawLimit(1000);
-
-            Client Alex = _centralBank.RegisterClient("Alex", "Milkovich", "9348938", "Pomoyka");
+            Client Alex = _clientBuilder
+                .AddName("Alex")
+                .AddSurname("Milkovich")
+                .AddPassport("8-800-555-35-35")
+                .AddAddress("Pomoyka 228")
+                .Build();
 
             DebitAccount alexAccount = tinkoff.OpenDebitAccount(Alex);
 

@@ -12,7 +12,6 @@ namespace Banks.Transactions
         private Bank _raiseBank;
         private int _withdrawId;
         private int _raiseId;
-        private TransactionStatus _status;
         private int _amount;
 
         public Transfer(Client author, Bank withdrawBank, int withdrawId, Bank raiseBank, int raiseId, int amount)
@@ -23,7 +22,6 @@ namespace Banks.Transactions
             _withdrawId = withdrawId;
             _raiseId = raiseId;
             _amount = amount;
-            _status = TransactionStatus.FAIL;
             if (amount < 0) throw new Exception("Некорректная сумма перевода");
         }
 
@@ -33,12 +31,6 @@ namespace Banks.Transactions
             Account raiseAccount = _raiseBank.GetAccountById(_raiseId);
             withdrawAccount.Withdraw(_amount);
             raiseAccount.Raise(_amount);
-            _status = TransactionStatus.SUCCESS;
-        }
-
-        public string GetInfo()
-        {
-            return $"REPLAINESHMENT TRANSACTION {_status}: by {_author}, amount: {_amount}, bank withdraw: {_withdrawBank}, raise bank: {_raiseBank},accounts: {_raiseId}, {_withdrawId}";
         }
 
         public Client GetAuthor()
