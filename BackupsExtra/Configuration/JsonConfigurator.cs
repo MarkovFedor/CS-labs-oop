@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Backups.Entities;
 using BackupsExtra.Exceptions;
 using Newtonsoft.Json;
@@ -8,7 +9,7 @@ namespace BackupsExtra.Configuration
         : IConfigurator
     {
         private string _configFileName;
-        private BackupJob _state;
+        private List<BackupJob> _state;
 
         public JsonConfigurator(string fileName)
         {
@@ -17,27 +18,30 @@ namespace BackupsExtra.Configuration
                 _configFileName = fileName;
             }
 
+            _state = new List<BackupJob>();
+
             throw new IncorrectFileNameException("Файл конфигурации должен иметь расширение .json");
         }
 
-        public void ImportConfiguration()
+        public List<BackupJob> ImportConfiguration()
         {
-            using (var r = new StreamReader("file.json"))
+            using (var r = new StreamReader(_configFileName))
             {
                 string json = r.ReadToEnd();
-                BackupJob backupJob = JsonConvert.DeserializeObject<BackupJob>(json);
+                List<BackupJob> backupJob = JsonConvert.DeserializeObject<List<BackupJob>>(json);
                 _state = backupJob;
             }
-        }
 
-        public void ExportConfiguration()
-        {
-
-        }
-
-        public BackupJob GetConfiguration()
-        {
             return _state;
+        }
+
+        public void ExportConfiguration(List<BackupJob> items)
+        {
+            using (var r = new StreamReader(_configFileName))
+            {
+                JsonSerializer.Serialize<List<BackupJob>>(items);
+                _state = backupJob;
+            }
         }
 
         private bool IsCorrectFileName(string fileName)

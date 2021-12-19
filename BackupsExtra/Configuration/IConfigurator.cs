@@ -1,8 +1,10 @@
-﻿namespace BackupsExtra.Configuration
+﻿using System.Collections.Generic;
+using Backups.Entities;
+namespace BackupsExtra.Configuration
 {
     public interface IConfigurator
     {
-        void ImportConfiguration();
-        void ExportConfiguration();
+        List<BackupJob> ImportConfiguration();
+        void ExportConfiguration(List<BackupJob> items);
     }
 }

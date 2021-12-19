@@ -7,7 +7,7 @@ namespace Banks.BankStructures
     {
         private List<ITransactionStrategy> _transactionsHistory;
         private List<Bank> _banks;
-        private List<Client> _registratedClients;
+        private List<Client> _registratedClients;22222222
         public CentralBank()
         {
             _transactionsHistory = new List<ITransactionStrategy>();

@@ -4,7 +4,6 @@ namespace BackupsExtra.Cleaner
 {
     public interface ICleanerStrategy
     {
-        public void Clean();
-        public List<RestorePoint> GetToCleanPoints();
+        List<RestorePoint> FindPointsToClean(List<RestorePoint> points);
     }
 }
