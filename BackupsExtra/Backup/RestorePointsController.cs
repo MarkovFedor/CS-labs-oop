@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Backups.Entities;
 using BackupsExtra.Cleaner;
+using BackupsExtra.Exceptions;
 using BackupsExtra.Log;
 using BackupsExtra.Repository;
 namespace BackupsExtra.Backup
@@ -10,6 +12,7 @@ namespace BackupsExtra.Backup
         private ICleanerStrategy _cleanerStrategy;
         private List<RestorePoint> _pointsToClean;
         private Logger _logger;
+        private IExtraRepository _repository;
         public RestorePointsController()
         {
         }
@@ -19,6 +22,11 @@ namespace BackupsExtra.Backup
             _logger = logger;
         }
 
+        public void SetRepository(IExtraRepository repository)
+        {
+            _repository = repository;
+        }
+
         public void SetStrategy(ICleanerStrategy strategy)
         {
             _cleanerStrategy = strategy;
@@ -26,7 +34,11 @@ namespace BackupsExtra.Backup
 
         public List<RestorePoint> GetPointsToClean(List<RestorePoint> points)
         {
-            _pointsToClean = _cleanerStrategy.FindPointsToClean(points);
+            List<RestorePoint> result = _cleanerStrategy.FindPointsToClean(points);
+            if (result.Count >= points.Count) throw new AllPointsToCleanException("Придется удалить все точки");
+            _pointsToClean = result;
+            _logger.Log("info", "найдены точки для очистки");
+            Console.WriteLine(result.Count + " " + points.Count);
             return _pointsToClean;
         }
 
@@ -46,6 +58,7 @@ namespace BackupsExtra.Backup
 
             if (result.Count == points.Count) throw new AllPointsToCleanException("По данному алгоритму придется удалить все restore point");
             _pointsToClean = result;
+            _logger.Log("info", "найдены точки для очистки");
             return _pointsToClean;
         }
 
@@ -69,37 +82,47 @@ namespace BackupsExtra.Backup
 
             if (result.Count == points.Count) throw new AllPointsToCleanException("По данному алгоритму придется удалить все restore point");
             _pointsToClean = result;
+            _logger.Log("info", "найдены точки для очистки");
             return result;
         }
 
-        public void CleanPoints(IExtraRepository repository)
+        public List<RestorePoint> CleanPoints()
         {
             foreach (RestorePoint point in _pointsToClean)
             {
-                repository.Delete(point.GetPath() + ".zip");
+                _repository.Delete(point.GetPath() + ".zip");
             }
+
+            _logger.Log("info", "точки очищены");
+            return _pointsToClean;
         }
 
-        public void MergePoints(RestorePoint oldPoint, RestorePoint newPoint)
+        public RestorePoint MergePoints(RestorePoint oldPoint, RestorePoint newPoint)
         {
-            if (oldPoint.GetType())
+            if (oldPoint.GetAlgorithm().GetName() == "Single") _repository.Delete(oldPoint.GetPath() + ".zip");
             foreach (string currentObject in oldPoint.GetStorage().GetJobObjects())
             {
-                if (newPoint.GetStorage().GetJobObjects().Contains(currentObject))
+                if (!newPoint.GetStorage().GetJobObjects().Contains(currentObject))
                 {
-                    newPoint.
+                    newPoint.GetStorage().AddJobObject(currentObject);
                 }
             }
+
+            _logger.Log("info", "точки смерджены");
+            _repository.Update(newPoint);
+            return newPoint;
         }
 
-        public void RestorePointToOriginalLocation(RestorePoint restorePoint, IExtraRepository repository)
+        public void RestorePointToOriginalLocation(RestorePoint restorePoint)
         {
-            repository.Restore(restorePoint.GetPath() + ".zip", restorePoint.GetPath());
+            _repository.Restore(restorePoint.GetPath() + ".zip", restorePoint.GetPath());
+            _logger.Log("info", "файлы восстановлены в исходную директорию");
         }
 
-        public void RestorePointsToNewLocation(RestorePoint restorePoint, IExtraRepository repository, string location)
+        public void RestorePointsToNewLocation(RestorePoint restorePoint, string location)
         {
-            repository.Restore(restorePoint.GetPath() + ".zip", location);
+            _repository.Restore(restorePoint.GetPath() + ".zip", location);
+            _logger.Log("info", "точки восстановлены в новую директорию");
         }
     }
 }

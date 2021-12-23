@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Backups.Entities;
 namespace BackupsExtra.Cleaner
 {
@@ -14,9 +15,10 @@ namespace BackupsExtra.Cleaner
         public List<RestorePoint> FindPointsToClean(List<RestorePoint> points)
         {
             var result = new List<RestorePoint>();
+            if (points.Count <= _pointCountLimit) return points;
             if (points.Count > _pointCountLimit)
             {
-                result = points.GetRange(points.Count - 1 - _pointCountLimit, _pointCountLimit);
+                result = points.GetRange(0, points.Count - _pointCountLimit);
             }
 
             return result;

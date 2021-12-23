@@ -84,7 +84,7 @@ namespace Backups.Entities
 
         public void CreateRestorePoint(string name)
         {
-            var restorePoint = new RestorePoint(name, _dir, _storage);
+            var restorePoint = new RestorePoint(name, _dir, _storage, _algorithm);
             _algorithm.Save(restorePoint);
             _restorePoints.Add(restorePoint);
         }

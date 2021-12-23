@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Backups.Entities;
 using Backups.Repository;
 namespace BackupsExtra.Repository
 {
@@ -16,6 +14,10 @@ namespace BackupsExtra.Repository
         {
             GetStorages().Remove(filePath);
             GetStorages().Add(location);
+        }
+
+        public void Update(RestorePoint restorePoint)
+        {
         }
     }
 }

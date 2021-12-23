@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
-using Backups.Entities;
+using BackupsExtra.Backup;
 namespace BackupsExtra.Configuration
 {
     public class VirtualConfigurator
         : IConfigurator
     {
-        private List<BackupJob> _storage;
+        private List<BackupJobExtra> _storage;
         public VirtualConfigurator()
         {
-            _storage = new List<BackupJob>();
+            _storage = new List<BackupJobExtra>();
         }
 
-        public List<BackupJob> ImportConfiguration()
+        public List<BackupJobExtra> ImportConfiguration()
         {
             return _storage;
         }
 
-        public void ExportConfiguration(List<BackupJob> items)
+        public void ExportConfiguration(List<BackupJobExtra> items)
         {
             _storage = items;
         }

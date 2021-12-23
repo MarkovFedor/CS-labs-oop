@@ -1,4 +1,5 @@
-﻿using Backups.Repository;
+﻿using Backups.Entities;
+using Backups.Repository;
 namespace BackupsExtra.Repository
 {
     public interface IExtraRepository
@@ -6,5 +7,7 @@ namespace BackupsExtra.Repository
     {
         void Delete(string filePath);
         void Restore(string filePath, string restorePath);
+
+        void Update(RestorePoint restorePoint);
     }
 }

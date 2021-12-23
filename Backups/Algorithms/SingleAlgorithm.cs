@@ -22,5 +22,10 @@ namespace Backups.Algorithms
                 _repository.Create(storeObject, clearStoreObject, archName);
             }
         }
+
+        public string GetName()
+        {
+            return "Single";
+        }
     }
 }
