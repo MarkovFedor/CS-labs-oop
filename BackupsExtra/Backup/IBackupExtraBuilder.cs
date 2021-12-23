@@ -1,7 +1,7 @@
 ﻿using Backups.Algorithms;
 using Backups.Repository;
 using BackupsExtra.Cleaner;
-using BackupsExtra.Log;
+using BackupsExtra.CustomLog;
 namespace BackupsExtra.Backup
 {
     public interface IBackupExtraBuilder

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Backups.Algorithms;
 using BackupsExtra.Backup;
 using BackupsExtra.Cleaner;
-using BackupsExtra.Log;
+using BackupsExtra.CustomLog;
 using BackupsExtra.Repository;
 namespace BackupsExtra
 {

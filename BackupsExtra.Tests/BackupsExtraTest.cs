@@ -4,7 +4,7 @@ using System.Text;
 using NUnit.Framework;
 using BackupsExtra.Backup;
 using BackupsExtra.Configuration;
-using BackupsExtra.Log;
+using BackupsExtra.CustomLog;
 using Backups.Algorithms;
 using BackupsExtra.Repository;
 using BackupsExtra.Cleaner;

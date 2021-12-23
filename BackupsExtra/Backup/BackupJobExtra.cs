@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Backups.Entities;
 using BackupsExtra.Cleaner;
-using BackupsExtra.Log;
+using BackupsExtra.CustomLog;
 namespace BackupsExtra.Backup
 {
     public class BackupJobExtra
