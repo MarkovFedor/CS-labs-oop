@@ -15,7 +15,7 @@ namespace BackupsExtra
             var firstJob = new BackupJobExtra();
             var logger = new Logger();
             var repository = new VirtualExtraRepository();
-            var restorePointsControler = new RestorePointsController();
+            var restorePointsControler = new RestorePointsManager();
             restorePointsControler.SetLogger(logger);
             restorePointsControler.SetRepository(repository);
             logger.AddLoggerStrategy(new ConsoleLogger());

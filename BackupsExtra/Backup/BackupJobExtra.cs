@@ -8,13 +8,13 @@ namespace BackupsExtra.Backup
         : BackupJob
     {
         private Logger _logger;
-        private RestorePointsController _restorePointsController;
+        private RestorePointsManager _restorePointsController;
 
         public BackupJobExtra()
         {
         }
 
-        public void SetRestorePointsController(RestorePointsController restorePointsController)
+        public void SetRestorePointsController(RestorePointsManager restorePointsController)
         {
             _restorePointsController = restorePointsController;
         }

@@ -5,6 +5,6 @@ namespace Backups.Algorithms
     public interface IAlgorithm
     {
         void Save(RestorePoint restorePoint);
-        string GetName();
+        AlgorithmType GetName();
     }
 }

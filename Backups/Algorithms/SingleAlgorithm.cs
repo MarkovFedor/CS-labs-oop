@@ -6,9 +6,11 @@ namespace Backups.Algorithms
     public class SingleAlgorithm : IAlgorithm
     {
         private IRepository _repository;
+        private AlgorithmType _name;
         public SingleAlgorithm(IRepository repository)
         {
             _repository = repository;
+            _name = AlgorithmType.SINGLE;
         }
 
         public void Save(RestorePoint restorePoint)
@@ -23,9 +25,9 @@ namespace Backups.Algorithms
             }
         }
 
-        public string GetName()
+        public AlgorithmType GetName()
         {
-            return "Single";
+            return _name;
         }
     }
 }

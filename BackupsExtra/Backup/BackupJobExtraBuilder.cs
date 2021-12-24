@@ -31,7 +31,7 @@ namespace BackupsExtra.Backup
             return this;
         }
 
-        public BackupJobExtraBuilder AddRestorePointController(RestorePointsController restorePointsController)
+        public BackupJobExtraBuilder AddRestorePointController(RestorePointsManager restorePointsController)
         {
             _backupJob.SetRestorePointsController(restorePointsController);
             return this;

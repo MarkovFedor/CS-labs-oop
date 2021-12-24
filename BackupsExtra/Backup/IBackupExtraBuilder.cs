@@ -9,7 +9,7 @@ namespace BackupsExtra.Backup
         BackupJobExtraBuilder AddDirectory(string dir);
         BackupJobExtraBuilder AddAlgorithm(IAlgorithm algorithm);
         BackupJobExtraBuilder AddRepository(IRepository repository);
-        BackupJobExtraBuilder AddRestorePointController(RestorePointsController restorePointsController);
+        BackupJobExtraBuilder AddRestorePointController(RestorePointsManager restorePointsController);
         BackupJobExtraBuilder AddLogger(Logger logger);
         BackupJobExtraBuilder AddCleanerStrategy(ICleanerStrategy cleanerStrategy);
         BackupJobExtraBuilder AddJobObject(string path);

@@ -7,13 +7,13 @@ using BackupsExtra.Exceptions;
 using BackupsExtra.Repository;
 namespace BackupsExtra.Backup
 {
-    public class RestorePointsController
+    public class RestorePointsManager
     {
         private ICleanerStrategy _cleanerStrategy;
         private List<RestorePoint> _pointsToClean;
         private Logger _logger;
         private IExtraRepository _repository;
-        public RestorePointsController()
+        public RestorePointsManager()
         {
         }
 
@@ -99,7 +99,7 @@ namespace BackupsExtra.Backup
 
         public RestorePoint MergePoints(RestorePoint oldPoint, RestorePoint newPoint)
         {
-            if (oldPoint.GetAlgorithm().GetName() == "Single") _repository.Delete(oldPoint.GetPath() + ".zip");
+            if (oldPoint.GetAlgorithm().GetName() == Backups.Algorithms.AlgorithmType.SINGLE) _repository.Delete(oldPoint.GetPath() + ".zip");
             foreach (string currentObject in oldPoint.GetStorage().GetJobObjects())
             {
                 if (!newPoint.GetStorage().GetJobObjects().Contains(currentObject))

@@ -6,9 +6,11 @@ namespace Backups.Algorithms
     public class SplitAlgorithm : IAlgorithm
     {
         private IRepository _repository;
+        private AlgorithmType _name;
         public SplitAlgorithm(IRepository repository)
         {
             _repository = repository;
+            _name = AlgorithmType.SPLIT;
         }
 
         public void Save(RestorePoint restorePoint)
@@ -23,9 +25,9 @@ namespace Backups.Algorithms
             }
         }
 
-        public string GetName()
+        public AlgorithmType GetName()
         {
-            return "Split";
+            return _name;
         }
     }
 }
